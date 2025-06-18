@@ -23,6 +23,7 @@ fi
 
 if [ ${#1} -ne 40 ]; then # check da length of da hashie boi
     echo "First arguement should be the SHA1 hash, exactly 40 hex characters long. exiting"
+    exit
 fi
 
 if [ ${#2} -ne 5 ]; then # maek sure da known chars are precisely 5 chars otherwise fail
