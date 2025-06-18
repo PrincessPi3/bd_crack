@@ -21,6 +21,15 @@ if [ -z $1 -o -z $2 ]; then # check to maek sure both required args are present
     exit # die on fail after printing usage bullshit :lmao:
 fi
 
+if [ ${#1} -ne 40 ]; then # check da length of da hashie boi
+    echo "First arguement should be the SHA1 hash, exactly 40 hex characters long. exiting"
+fi
+
+if [ ${#2} - ne 5 ]; then # maek sure da known chars are precisely 5 chars otherwise fail
+    echo "Second argument should be exactly five characters! exiting"
+    exit
+fi
+
 if [ ! -z $3 ]; then # if charset is specified
     charset="$3" # just rename $3 for whatever reason lmfao im so high
     charset_formatted="?" # start with da ? at the start frong
