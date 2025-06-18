@@ -49,5 +49,5 @@ fi
 
 outfile="$2-$1-cracked.txt"
 sudo hashcat -a3 -m100 $1 -1 $charset_formatted "$2?1?1?1?1?1?1?1?1" --increment --increment-min=5 -O -o "$2-$1-cracked.txt"
-
+echo "retcode: $?"
 echo "Done! Password will be in ${outfile}!"
