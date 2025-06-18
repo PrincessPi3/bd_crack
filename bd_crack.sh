@@ -26,9 +26,8 @@ if [ ! -z $3 ]; then # if charset is specified
     charset_formatted="?" # start with da ? at the start frong
     valid_charsets="ludhHsb" # regex bit of valid charsssssss
 
-    if [[ "$charset" =~ ^["$valid_charsets"]+$ ]]; then # sanity checkan da stupid chars :wheeze:
+    if [[ "$charset" =~ ^["$valid_charsets"]+$ ]]; then # sanity checkan da stupid chars :wheeze: just some shitty regex bullsh8it
         charset=$(grep -o . <<< "$charset" | sort -u | tr -d '\n')
-        echo $charset
     else
         echo "INVALID CHARSET, DEFAULTING TO DEFAULT BEHAVIOR"
         charset_formatted="?l?u?d?s" # just replicate da default charset here because lazy as fucxk lmafao
@@ -47,7 +46,15 @@ else # if charset is not specified default to digit, upper alpha, lower alpha, a
     charset_formatted="?l?u?d?s"
 fi
 
-outfile="$2-$1-cracked.txt"
+outfile="$2-$1-cracked.txt" # using a fookin outfile because da hashcat.potsmoke or whatever the fuck is stupid
+
 sudo hashcat -a3 -m100 $1 -1 $charset_formatted "$2?1?1?1?1?1?1?1?1" --increment --increment-min=5 -O -o "$2-$1-cracked.txt"
-echo "retcode: $?"
-echo "Done! Password will be in ${outfile}!"
+retcode=$? # jus gettin da return code from hashcat rq
+
+if [ $retcode -eq 0 ]; then # check if hashcat exited with a 0 meaning successful crack
+    echo "Cracked Successfully! Password will be in ./${outfile}!"
+    real_user="${SUDO_USER:-$USER}" # stupid hack to get the real current user regardless of any sudo usage
+    sudo chown $real_user:$real_user $outfile # fix da fuckin perms jfc lmao
+else # otherwise inform of failure
+    echo "Stopped or Ended! Password not found!"
+fi
