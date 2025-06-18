@@ -61,10 +61,13 @@ outfile="$2-$1-cracked.txt" # using a fookin outfile because da hashcat.potsmoke
 sudo hashcat -a3 -m100 $1 -1 $charset_formatted "$2?1?1?1?1?1?1?1?1" --increment --increment-min=5 -O -o "$2-$1-cracked.txt"
 retcode=$? # jus gettin da return code from hashcat rq
 
-if [ $retcode -eq 0 ]; then # check if hashcat exited with a 0 meaning successful crack
-    echo "Cracked Successfully! Password will be in ./${outfile}!"
+if [ $retcode -eq 0 ]; then # check if hashcat exited with a 0 meaning successful crack\
     real_user="${SUDO_USER:-$USER}" # stupid hack to get the real current user regardless of any sudo usage
     sudo chown $real_user:$real_user $outfile # fix da fuckin perms jfc lmao
+
+    echo -e "Cracked! Result:\n\t$(cat $outfile)" # show da contents of da outfile for helpfuls
+
+    echo "Cracked Successfully! Password will be in ./${outfile}!"
 else # otherwise inform of failure
     echo "Stopped or Ended! Password not found!"
 fi
