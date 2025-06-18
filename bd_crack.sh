@@ -47,4 +47,7 @@ else # if charset is not specified default to digit, upper alpha, lower alpha, a
     charset_formatted="?l?u?d?s"
 fi
 
-sudo hashcat -a3 -m100 $1 -1 $charset_formatted "$2?1?1?1?1?1?1?1?1" --increment --increment-min=5 -O
+outfile="$2-$1-cracked.txt"
+sudo hashcat -a3 -m100 $1 -1 $charset_formatted "$2?1?1?1?1?1?1?1?1" --increment --increment-min=5 -O -o "$2-$1-cracked.txt"
+
+echo "Done! Password will be in ${outfile}!"
