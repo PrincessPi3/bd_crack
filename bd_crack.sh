@@ -17,17 +17,17 @@
 # Example: bash bd_crack.sh c8ea28d3285e468961a76b5de75871fbe539808a passp
 
 if [ -z $1 -o -z $2 ]; then # check to maek sure both required args are present
-    echo -e "Mandatory arguments missing! Usage:\nbd_crack.sh <hash> <known five characters> <optional charset>\nPlease see README for more details"
+    echo -e "Mandatory arguments missing!\nPlease see README for more details\nUsage:\n\tbd_crack.sh <hash> <known five characters> <optional charset>\nexiting"
     exit # die on fail after printing usage bullshit :lmao:
 fi
 
 if [ ${#1} -ne 40 ]; then # check da length of da hashie boi
-    echo "First arguement should be the SHA1 hash, exactly 40 hex characters long. exiting"
+    echo "First arguement should be the SHA1 hash, exactly 40 hex characters long!\nPlease see README for more details\nUsage:\n\tbd_crack.sh <hash> <known five characters> <optional charset>\nexiting"
     exit
 fi
 
 if [ ${#2} -ne 5 ]; then # maek sure da known chars are precisely 5 chars otherwise fail
-    echo "Second argument should be exactly five characters! exiting"
+    echo "Second argument should be exactly five characters!\nPlease see README for more details\nUsage:\n\tbd_crack.sh <hash> <known five characters> <optional charset>\nexiting"
     exit
 fi
 
@@ -65,7 +65,7 @@ if [ $retcode -eq 0 ]; then # check if hashcat exited with a 0 meaning successfu
     real_user="${SUDO_USER:-$USER}" # stupid hack to get the real current user regardless of any sudo usage
     sudo chown $real_user:$real_user $outfile # fix da fuckin perms jfc lmao
 
-    echo -e "Cracked! Result:\n\t$(cat $outfile)" # show da contents of da outfile for helpfuls
+    echo -e "\nCracked! Result:\n\t$(cat $outfile)\n" # show da contents of da outfile for helpfuls
 
     echo "Cracked Successfully! Password will be in ./${outfile}!"
 else # otherwise inform of failure
