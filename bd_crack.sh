@@ -58,12 +58,12 @@ fi
 
 outfile="$2-$1-$(date +"%d-%m-%Y-%H%M")-cracked.txt" # using a fookin outfile because da hashcat.potsmoke or whatever the fuck is stupid
 
-sudo hashcat -a3 -m100 $1 -1 $charset_formatted "$2?1?1?1?1?1?1?1?1" --increment --increment-min=5 -O -o "$outfile"
+hashcat -a3 -m100 $1 -1 $charset_formatted "$2?1?1?1?1?1?1?1?1" --increment --increment-min=5 -O -o "$outfile"
 retcode=$? # jus gettin da return code from hashcat rq
 
 if [ $retcode -eq 0 ]; then # check if hashcat exited with a 0 meaning successful crack\
-    real_user="${SUDO_USER:-$USER}" # stupid hack to get the real current user regardless of any sudo usage
-    sudo chown $real_user:$real_user "$outfile" # fix da fuckin perms jfc lmao
+    # real_user="${SUDO_USER:-$USER}" # stupid hack to get the real current user regardless of any sudo usage
+    # sudo chown $real_user:$real_user "$outfile" # fix da fuckin perms jfc lmao
 
     echo -e "\nCracked! Result:\n\t$(cat "$outfile")\n" # show da contents of da outfile for helpfuls
 
