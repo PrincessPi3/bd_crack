@@ -22,3 +22,5 @@ Optional charset format
     * Example: upper alpha and symbols+space: `us` ex. `bash bd_crack.sh c8ea28d3285e468961a76b5de75871fbe539808a passp us`
 * Example: `bash bd_crack.sh c8ea28d3285e468961a76b5de75871fbe539808a passp lud`
 * Example: `bash bd_crack.sh c8ea28d3285e468961a76b5de75871fbe539808a passp`
+
+Thanks to [Tak](https://taksshack.com/members/thumbtak/) for some bug fixes!
